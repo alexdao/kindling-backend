@@ -1,6 +1,6 @@
 'use strict';
 const app = require('express')();
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 3000));
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Article = require('./Article');
@@ -68,6 +68,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(app.get('port'), function(){
+  console.log('listening on *:' + app.get('port'));
 });
