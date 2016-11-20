@@ -27,7 +27,7 @@ class Queue {
       this.head = curr.next;
       this.size--;
     }
-    return curr;
+    return curr.data;
   }
 
   getSize() {
