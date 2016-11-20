@@ -45,8 +45,8 @@ io.on('connection', function(socket){
       chatId++;
     }
     else {
-      socket.emit('chatId', {chatId: chat.getChatId()});
       chat = uriToChatMap.get(uri);
+      socket.emit('chatId', {chatId: chat.getChatId()});
       chat.addUser(socket);
     }
 
