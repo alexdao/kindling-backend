@@ -50,21 +50,21 @@ class Article {
         }
       }
     }
-
-    // add to a queue of waiting users if we cannot find any partner to match with
-    addToWaiting(user) {
-      let reaction = user.reaction;
-      if (reaction == 'Approve') {
-        this.approveQueue.push(user);
-      } else if (reaction == 'Disapprove') {
-        this.disapproveQueue.push(user);
-      } else {
-        this.indifferentQueue.push(user);
-      }
-    }
-
     // no partner could be found
     return null;
+  }
+
+
+  // add to a queue of waiting users if we cannot find any partner to match with
+  addToWaiting(user) {
+    let reaction = user.reaction;
+    if (reaction == 'Approve') {
+      this.approveQueue.push(user);
+    } else if (reaction == 'Disapprove') {
+      this.disapproveQueue.push(user);
+    } else {
+      this.indifferentQueue.push(user);
+    }
   }
 }
 

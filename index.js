@@ -74,15 +74,15 @@ io.on('connection', function(socket){
     let partner = article.getPartner(user);
     if (partner == null) {
       // check all articles
-      let articleList = uriToArticleMap.values();
-      articleList.forEach((otherArticle) => {
-        if(otherArticle.matchesTopic(article.topic)) {
+      let articleIter = uriToArticleMap.values();
+      next = articleIter.next();
+      while (!next.done && partner == null) {
+        let currentArticle = next.value;
+        if (currentArticle.matchesTopic(article.topic)){
           partner = otherArticle.getPartner(user);
         }
-        if(partner != null) {
-          break;
-        }
-      });
+        next = articleIter.next();
+      }
     }
 
     if (partner == null) {
@@ -101,11 +101,12 @@ io.on('connection', function(socket){
       socket.emit('chatId', chat.getChatId());
       partner.socket.emit('chatId', chat.getChatId());
     }
-  })
+  });
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
     const user = sockToUserMap.get(socket);
+    console.log(user);
     const uri = user.uri;
 
     // remove from group chat
@@ -114,10 +115,9 @@ io.on('connection', function(socket){
     chat.removeUser(socket);
 
     // remove from all private chats
-    let chatIds = idToChatMap.keys();
-    chatList.forEach((currChatId) => {
-      let currChat = idToChatMap.get(currChatId);
-      if (currChat.getChatId() != groupChatId) {
+    let chatList = idToChatMap.keys();
+    idToChatMap.forEach((currChat, currChatId) => {
+      if (currChatId != groupChatId) {
         if (currChat.containsUser(socket)) {
           // send the partner a disconnect message
           let partner = currChat.getPartner(socket);

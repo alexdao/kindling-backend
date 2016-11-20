@@ -26,14 +26,13 @@
 
       let payload = new Object();
       payload.uri = 'uri';
-      payload.name = 'Danny';
-      payload.reaction = 'Approve';
+      payload.name = 'Alex';
+      payload.reaction = 'Disapprove';
       payload.title = 'Title';
       payload.topic = 'Topic';
-      payload.bias = 'Liberal';
+      payload.bias = 'Conservative';
       payload = JSON.stringify(payload);
       socket.emit('init', payload);
-      console.log('Initialized');
 
       $('form').submit(function(){
         let msgRequest = new Object();
@@ -42,7 +41,6 @@
         msgRequest = JSON.stringify(msgRequest);
 
         socket.emit('chat msg', msgRequest);
-        console.log('sent chat msg');
         $('#m').val('');
         return false;
       });
