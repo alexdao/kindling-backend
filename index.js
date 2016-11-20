@@ -114,7 +114,6 @@ io.on('connection', function(socket){
     chat.removeUser(socket);
 
     // remove from all private chats
-    let chatList = idToChatMap.keys();
     idToChatMap.forEach((currChat, currChatId) => {
       if (currChatId != groupChatId) {
         if (currChat.containsUser(socket)) {
