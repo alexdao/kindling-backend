@@ -63,6 +63,16 @@
           socket.emit('private');
         }
       });
+
+      socket.on('privateChatResponse', function(privateChat){
+        let private_formatted = JSON.parse(privateChat);
+        let name = private_formatted.name;
+        let reaction = private_formatted.reaction;
+        let chatId = private_formatted.chatId;
+        console.log('private name: ' + name);
+        console.log('private reaction: ' + reaction);
+        console.log('private chatId: ' + chatId);
+      })
     </script>
   </body>
 </html>

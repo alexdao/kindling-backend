@@ -90,7 +90,6 @@ io.on('connection', function(socket){
       article.addToWaiting(user);
     }
     else {
-      console.log(partner);
       // create new chat
       let chat = new Chat(chatId);
       chat.addUser(socket);
