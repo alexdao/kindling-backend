@@ -78,6 +78,12 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
+    const user = sockToUserMap.get(socket);
+    const uri = user.uri;
+    
+    //TODO: Remove from all chats
+    const chat = uriToChatMap.get(uri);
+    chat.removeUser(socket);
   });
 });
 

@@ -9,6 +9,13 @@ class Chat {
     this.socks.push(sock);
   }
 
+  removeUser(sock) {
+    let index = this.socks.indexOf(sock);
+    if (index > -1) {
+      this.socks.splice(index, 1);
+    }
+  }
+
   getChatId() {
     return this.chatId;
   }
