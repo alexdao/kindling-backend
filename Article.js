@@ -21,32 +21,32 @@ class Article {
   getPartner(user) {
     let reaction = user.reaction;
     if (reaction == 'Approve') {
-      if (disapproveQueue.size() > 0) {
-        return disapproveQueue.pop();
-      } else if (indifferentQueue.size() > 0) {
-        return indifferentQueue.pop();
+      if (this.disapproveQueue.size() > 0) {
+        return this.disapproveQueue.pop();
+      } else if (this.indifferentQueue.size() > 0) {
+        return this.indifferentQueue.pop();
       }
     } else if (reaction == 'Disapprove') {
-      if (approveQueue.size() > 0) {
-        return approveQueue.pop();
-      } else if (indifferentQueue.size() > 0) {
-        return indifferentQueue.pop();
+      if (this.approveQueue.size() > 0) {
+        return this.approveQueue.pop();
+      } else if (this.indifferentQueue.size() > 0) {
+        return this.indifferentQueue.pop();
       }
     } else {
       // randomize which queue we select from first
       if(Math.random() > 0.5) {
-        if (approveQueue.size() > 0) {
-          return approveQueue.pop();
+        if (this.approveQueue.size() > 0) {
+          return this.approveQueue.pop();
         }
-        else if (disapproveQueue.size() > 0) {
-          return disapproveQueue.pop();
+        else if (this.disapproveQueue.size() > 0) {
+          return this.disapproveQueue.pop();
         }
       } else {
-        if (disapproveQueue.size() > 0) {
-          return disapproveQueue.pop();
+        if (this.disapproveQueue.size() > 0) {
+          return this.disapproveQueue.pop();
         }
-        else if (approveQueue.size() > 0) {
-          return approveQueue.pop();
+        else if (this.approveQueue.size() > 0) {
+          return this.approveQueue.pop();
         }
       }
     }

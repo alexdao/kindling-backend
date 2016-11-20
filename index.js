@@ -97,9 +97,22 @@ io.on('connection', function(socket){
       idToChatMap.set(chatId, chat);
       chatId++;
 
-      // send chatId to both client
-      socket.emit('chatId', chat.getChatId());
-      partner.socket.emit('chatId', chat.getChatId());
+      // send private chat initialization to both people
+      let payload = {
+        name: partner.name,
+        reaction: partner.reaction,
+        chatId: chat.getChatId(),
+      };
+      payload = JSON.stringify(payload);
+      socket.emit('privateChatResponse', );
+
+      let payload2 = {
+        name: user.name,
+        reaction: user.reaction,
+        chatId: chat.getChatId(),
+      };
+      payload2 = JSON.stringify(payload2);
+      partner.socket.emit('privateChatResponse', payload2);
     }
   });
 
