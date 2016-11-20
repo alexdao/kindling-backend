@@ -16,6 +16,26 @@ class Chat {
     }
   }
 
+  containsUser(sock) {
+    this.socks.forEach((currSock) => {
+      if (sock == currSock) {
+        return true;
+      }
+    });
+
+    return false;
+  }
+
+  getPartner(sock) {
+    this.socks.forEach((currSock) => {
+      if (sock != currSock) {
+        return currSock;
+      }
+    });
+
+    return null;
+  }
+
   getChatId() {
     return this.chatId;
   }

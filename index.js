@@ -68,22 +68,68 @@ io.on('connection', function(socket){
     console.log('Starting private chat.');
 
     const user = sockToUserMap.get(socket);
+    const article = uriToArticleMap.get(user.uri);
 
-    /**TODO:
-      1. Find person to chat with (or put in waiting queue if none)
-      2. Create new chat
-      3. send chatID for user to send messages to for both users in chat
-    */
+    // check current article for matching pair
+    let partner = article.getPartner(user);
+    if (partner == null) {
+      // check all articles
+      let articleList = uriToArticleMap.values();
+      articleList.forEach((otherArticle) => {
+        if(otherArticle.matchesTopic(article.topic)) {
+          partner = otherArticle.getPartner(user);
+        }
+        if(partner != null) {
+          break;
+        }
+      });
+    }
+
+    if (partner == null) {
+      // no partner exists so we need to wait for one
+      article.addToWaiting(user);
+    }
+    else {
+      // create new chat
+      let chat = new Chat(chatId);
+      chat.addUser(socket);
+      chat.addUser(partner.getSock());
+      idToChatMap.set(chatId, chat);
+      chatId++;
+
+      // send chatId to both client
+      socket.emit('chatId', chat.getChatId());
+      partner.socket.emit('chatId', chat.getChatId());
+    }
   })
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
     const user = sockToUserMap.get(socket);
     const uri = user.uri;
-    
-    //TODO: Remove from all chats
+
+    // remove from group chat
     const chat = uriToChatMap.get(uri);
+    let groupChatId = chat.getChatId();
     chat.removeUser(socket);
+
+    // remove from all private chats
+    let chatIds = idToChatMap.keys();
+    chatList.forEach((currChatId) => {
+      let currChat = idToChatMap.get(currChatId);
+      if (currChat.getChatId() != groupChatId) {
+        if (currChat.containsUser(socket)) {
+          // send the partner a disconnect message
+          let partner = currChat.getPartner(socket);
+          if (partner != null) {
+            partner.socket.emit('disconnect', currChat.getChatId());
+          }
+
+          // delete chat from map
+          idToChatMap.delete(currChatId);
+        }
+      }
+    });
   });
 });
 
