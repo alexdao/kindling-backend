@@ -48,7 +48,7 @@ io.on('connection', function(socket){
       chat.addUser(socket);
     }
 
-    socket.emit('chatId', chat.getChatId());
+    socket.emit('chatId', {chatId: chat.getChatId()});
   });
 
   socket.on('chat msg', function(msg){
@@ -106,7 +106,6 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
     const user = sockToUserMap.get(socket);
-    console.log(user);
     const uri = user.uri;
 
     // remove from group chat
