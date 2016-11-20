@@ -7,7 +7,7 @@ class Chat {
 
   addUser(sock) {
     this.socks.push(sock);
-    sendChatSize();
+    this.sendChatSize();
   }
 
   removeUser(sock) {
@@ -15,7 +15,7 @@ class Chat {
     if (index > -1) {
       this.socks.splice(index, 1);
     }
-    sendChatSize();
+    this.sendChatSize();
   }
 
   containsUser(sock) {
