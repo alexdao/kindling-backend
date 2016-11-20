@@ -16,6 +16,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+io.origins('*:*');
 io.on('connection', function(socket){
   console.log('a user connected');
 
