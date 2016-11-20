@@ -75,7 +75,7 @@ io.on('connection', function(socket){
     if (partner == null) {
       // check all articles
       let articleIter = uriToArticleMap.values();
-      next = articleIter.next();
+      let next = articleIter.next();
       while (!next.done && partner == null) {
         let currentArticle = next.value;
         if (currentArticle.matchesTopic(article.topic)){
