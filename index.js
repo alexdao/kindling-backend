@@ -137,7 +137,7 @@ io.on('connection', function(socket){
           console.log('found a private chat i belong to');
           if (partner != null) {
             console.log('found user to disconnect from');
-            partner.sock.emit('disconnect', currChat.getChatId());
+            partner.emit('disconnect', currChat.getChatId());
           }
 
           // delete chat from map
