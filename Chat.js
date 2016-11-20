@@ -13,17 +13,19 @@ class Chat {
     return this.chatId;
   }
 
-  broadcast(msg, user) {
+  broadcast(msg, user, chatId) {
     console.log('num of socks: ' + this.socks.length);
     this.socks.forEach((sock) => {
-      if(sock != user.sock) {
-        // broadcast the message to everybody but ourselves
-        let payload = new Object();
-        payload.name = user.name;
-        payload.msg = msg;
-        payload = JSON.stringify(payload);
-        sock.emit('msg', payload);
-      }
+      let payload = {
+        name: user.name,
+        msg: msg,
+        chatId: chatId,
+        reaction: user.reaction,
+        myself: sock == user.sock,
+      };
+
+      payload = JSON.stringify(payload);
+      sock.emit('msg', payload);
     });
   }
 

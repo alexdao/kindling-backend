@@ -21,7 +21,9 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io('https://frozen-waters-93748.herokuapp.com/');
+      //var socket = io('https://frozen-waters-93748.herokuapp.com/');
+      var socket = io();
+
       let payload = new Object();
       payload.uri = 'uri';
       payload.name = 'danny';
@@ -47,8 +49,12 @@
         let msg_formatted = JSON.parse(msg);
         let text = msg_formatted.msg;
         let name = msg_formatted.name;
+        let chatId = msg_formatted.chatId;
+        let reaction = msg_formatted.reaction;
         console.log('text: ' + text);
         console.log('name: ' + name);
+        console.log('chatId: ' + chatId);
+        console.log('reaction: ' + reaction);
       });
     </script>
   </body>

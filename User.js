@@ -1,7 +1,8 @@
 'use strict';
 class User {
-  constructor(name, reaction, sock) {
+  constructor(name, uri, reaction, sock) {
     this.name = name;
+    this.uri = uri;
     this.reaction = reaction;
     this.sock = sock;
   }

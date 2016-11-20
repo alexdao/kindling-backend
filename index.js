@@ -14,7 +14,7 @@ let sockToUserMap = new Map();
 let chatId = 0;
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/testing/index.html');
 });
 
 io.origins('*:*');
@@ -30,7 +30,7 @@ io.on('connection', function(socket){
     const topic = init_parsed.topic;
     const bias = init_parsed.bias;
 
-    let user = new User(name, reaction, socket);
+    let user = new User(name, uri, reaction, socket);
     let article = new Article(uri, title, topic, bias);
 
     sockToUserMap.set(socket, user);
@@ -60,8 +60,21 @@ io.on('connection', function(socket){
 
     const chat = idToChatMap.get(chatId);
     const user = sockToUserMap.get(socket);
-    chat.broadcast(text, user);
+    chat.broadcast(text, user, chatId);
   });
+
+  // requesting a private chat
+  socket.on('private', function(){
+    console.log('Starting private chat.');
+
+    const user = sockToUserMap.get(socket);
+
+    /**TODO:
+      1. Find person to chat with (or put in waiting queue if none)
+      2. Create new chat
+      3. send chatID for user to send messages to for both users in chat
+    */
+  })
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
