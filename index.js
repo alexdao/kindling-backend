@@ -79,7 +79,7 @@ io.on('connection', function(socket){
       while (!next.done && partner == null) {
         let currentArticle = next.value;
         if (currentArticle.matchesTopic(article.topic)){
-          partner = otherArticle.getPartner(user);
+          partner = currentArticle.getPartner(user);
         }
         next = articleIter.next();
       }
