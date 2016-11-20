@@ -124,11 +124,13 @@ io.on('connection', function(socket){
     // remove from group chat
     const chat = uriToChatMap.get(uri);
     let groupChatId = chat.getChatId();
+    console.log('group chat id is: ' + groupChatId);
     chat.removeUser(socket);
 
     // remove from all private chats
     idToChatMap.forEach((currChat, currChatId) => {
       if (currChatId != groupChatId) {
+        console.log('found a private chat');
         if (currChat.containsUser(socket)) {
           // send the partner a disconnect message
           let partner = currChat.getPartner(socket);
