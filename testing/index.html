@@ -57,6 +57,11 @@
         console.log('name: ' + name);
         console.log('chatId: ' + chatId);
         console.log('reaction: ' + reaction);
+
+        if(text == 'pwd') {
+          console.log('emitting private');
+          socket.emit('private');
+        }
       });
     </script>
   </body>
