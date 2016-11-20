@@ -93,14 +93,15 @@ io.on('connection', function(socket){
       // create new chat
       let chat = new Chat(chatId);
       chat.addUser(socket);
-      chat.addUser(partner.getSock());
+      chat.addUser(partner);
       idToChatMap.set(chatId, chat);
       chatId++;
 
+      let partnerUser = sockToUserMap.get(partner);
       // send private chat initialization to both people
       let payload = {
-        name: partner.name,
-        reaction: partner.reaction,
+        name: partnerUser.name,
+        reaction: partnerUser.reaction,
         chatId: chat.getChatId(),
       };
       payload = JSON.stringify(payload);
@@ -112,7 +113,7 @@ io.on('connection', function(socket){
         chatId: chat.getChatId(),
       };
       payload2 = JSON.stringify(payload2);
-      partner.socket.emit('privateChatResponse', payload2);
+      partner.emit('privateChatResponse', payload2);
     }
   });
 
