@@ -7,6 +7,7 @@ class Chat {
 
   addUser(sock) {
     this.socks.push(sock);
+    sendChatSize();
   }
 
   removeUser(sock) {
@@ -14,6 +15,7 @@ class Chat {
     if (index > -1) {
       this.socks.splice(index, 1);
     }
+    sendChatSize();
   }
 
   containsUser(sock) {
@@ -55,6 +57,12 @@ class Chat {
 
       payload = JSON.stringify(payload);
       sock.emit('msg', payload);
+    });
+  }
+
+  sendChatSize() {
+    this.socks.forEach((sock) => {
+      sock.emit('chatSize', this.socks.length);
     });
   }
 
