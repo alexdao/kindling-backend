@@ -17,13 +17,14 @@ class Chat {
   }
 
   containsUser(sock) {
+    let output = false;
     this.socks.forEach((currSock) => {
       if (sock == currSock) {
-        return true;
+        output = true;
       }
     });
 
-    return false;
+    return output;
   }
 
   getPartner(sock) {
