@@ -62,7 +62,12 @@ class Chat {
 
   sendChatSize() {
     this.socks.forEach((sock) => {
-      sock.emit('chatSize', this.socks.length);
+      let payload = {
+        size: this.socks.length,
+        chatId: chatId,
+      }
+      payload = JSON.stringify(payload);
+      sock.emit('chatSize', payload);
     });
   }
 
