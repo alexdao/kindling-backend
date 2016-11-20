@@ -1,5 +1,6 @@
 'use strict';
 const app = require('express')();
+app.set('port', (process.env.PORT || 5000));
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Article = require('./Article');
