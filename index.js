@@ -112,7 +112,7 @@ io.on('connection', function(socket){
         chatId: chat.getChatId(),
       };
       payload2 = JSON.stringify(payload2);
-      partner.emit('privateChatResponse', payload2);
+      partner.sock.emit('privateChatResponse', payload2);
     }
   });
 
