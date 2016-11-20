@@ -133,6 +133,7 @@ io.on('connection', function(socket){
           // send the partner a disconnect message
           let partner = currChat.getPartner(socket);
           if (partner != null) {
+            console.log('found user to disconnect from');
             partner.socket.emit('disconnect', currChat.getChatId());
           }
 
