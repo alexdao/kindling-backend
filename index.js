@@ -104,7 +104,7 @@ io.on('connection', function(socket){
         chatId: chat.getChatId(),
       };
       payload = JSON.stringify(payload);
-      socket.emit('privateChatResponse', );
+      socket.emit('privateChatResponse', payload);
 
       let payload2 = {
         name: user.name,
