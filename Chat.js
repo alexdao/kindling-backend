@@ -28,13 +28,14 @@ class Chat {
   }
 
   getPartner(sock) {
+    let output = null;
     this.socks.forEach((currSock) => {
       if (sock != currSock) {
-        return currSock;
+        output = currSock;
       }
     });
 
-    return null;
+    return output;
   }
 
   getChatId() {
