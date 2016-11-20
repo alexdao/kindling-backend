@@ -30,7 +30,7 @@ class Queue {
     return curr;
   }
 
-  size() {
+  getSize() {
     return this.size;
   }
 }

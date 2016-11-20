@@ -21,31 +21,31 @@ class Article {
   getPartner(user) {
     let reaction = user.reaction;
     if (reaction == 'Approve') {
-      if (this.disapproveQueue.size() > 0) {
+      if (this.disapproveQueue.getSize() > 0) {
         return this.disapproveQueue.pop();
-      } else if (this.indifferentQueue.size() > 0) {
+      } else if (this.indifferentQueue.getSize() > 0) {
         return this.indifferentQueue.pop();
       }
     } else if (reaction == 'Disapprove') {
-      if (this.approveQueue.size() > 0) {
+      if (this.approveQueue.getSize() > 0) {
         return this.approveQueue.pop();
-      } else if (this.indifferentQueue.size() > 0) {
+      } else if (this.indifferentQueue.getSize() > 0) {
         return this.indifferentQueue.pop();
       }
     } else {
       // randomize which queue we select from first
       if(Math.random() > 0.5) {
-        if (this.approveQueue.size() > 0) {
+        if (this.approveQueue.getSize() > 0) {
           return this.approveQueue.pop();
         }
-        else if (this.disapproveQueue.size() > 0) {
+        else if (this.disapproveQueue.getSize() > 0) {
           return this.disapproveQueue.pop();
         }
       } else {
-        if (this.disapproveQueue.size() > 0) {
+        if (this.disapproveQueue.getSize() > 0) {
           return this.disapproveQueue.pop();
         }
-        else if (this.approveQueue.size() > 0) {
+        else if (this.approveQueue.getSize() > 0) {
           return this.approveQueue.pop();
         }
       }
