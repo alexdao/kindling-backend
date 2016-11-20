@@ -38,17 +38,18 @@ io.on('connection', function(socket){
     let chat;
     if (uriToChatMap.get(uri) == null) {
       chat = new Chat(chatId);
+      socket.emit('chatId', {chatId: chat.getChatId()});
       chat.addUser(socket);
       uriToChatMap.set(uri, chat);
       idToChatMap.set(chatId, chat);
       chatId++;
     }
     else {
+      socket.emit('chatId', {chatId: chat.getChatId()});
       chat = uriToChatMap.get(uri);
       chat.addUser(socket);
     }
 
-    socket.emit('chatId', {chatId: chat.getChatId()});
   });
 
   socket.on('chat msg', function(msg){
